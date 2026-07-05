@@ -26,14 +26,77 @@
     });
   });
 
+  const topbar = document.querySelector(".topbar");
   const menuButton = document.querySelector("[data-menu-button]");
   const mobilePanel = document.querySelector("[data-mobile-panel]");
+
+  function closeMobileMenu() {
+    if (!mobilePanel || !menuButton) return;
+    mobilePanel.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    topbar?.classList.remove("topbar--menu-open");
+  }
+
   if (menuButton && mobilePanel) {
     menuButton.addEventListener("click", () => {
       const open = mobilePanel.classList.toggle("open");
       menuButton.setAttribute("aria-expanded", String(open));
+      topbar?.classList.toggle("topbar--menu-open", open);
+      if (open) topbar?.classList.remove("topbar--hidden");
+      requestAnimationFrame(setHeaderHeight);
+    });
+
+    mobilePanel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMobileMenu);
     });
   }
+
+  function setHeaderHeight() {
+    if (!topbar) return;
+    const height = topbar.offsetHeight;
+    root.style.setProperty("--header-height", `${height}px`);
+  }
+
+  setHeaderHeight();
+  window.addEventListener("resize", setHeaderHeight);
+
+  let lastScrollY = window.scrollY;
+  let scrollTicking = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function onScrollHeader() {
+    if (!topbar) return;
+
+    const y = window.scrollY;
+    const menuOpen = mobilePanel?.classList.contains("open");
+
+    if (y <= 24) {
+      topbar.classList.remove("topbar--hidden", "topbar--compact");
+    } else if (!menuOpen) {
+      const delta = y - lastScrollY;
+      if (delta > 6) {
+        topbar.classList.add("topbar--hidden");
+        topbar.classList.remove("topbar--compact");
+      } else if (delta < -6) {
+        topbar.classList.remove("topbar--hidden");
+        topbar.classList.add("topbar--compact");
+      }
+    }
+
+    lastScrollY = y;
+    scrollTicking = false;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(onScrollHeader);
+      }
+    },
+    { passive: true }
+  );
 
   document.querySelectorAll("[data-year]").forEach((node) => {
     node.textContent = String(new Date().getFullYear());
@@ -51,7 +114,7 @@
   }
 
   const revealNodes = document.querySelectorAll("[data-reveal]");
-  if (revealNodes.length) {
+  if (revealNodes.length && !reducedMotion) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -61,46 +124,12 @@
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -32px 0px" }
     );
     revealNodes.forEach((node) => observer.observe(node));
+  } else {
+    revealNodes.forEach((node) => node.classList.add("visible"));
   }
-
-  const parallaxItems = document.querySelectorAll("[data-parallax]");
-  const cards3d = document.querySelectorAll("[data-3d-card]");
-  const stage3d = document.querySelector("[data-3d-stage]");
-
-  function onScroll3d() {
-    const y = window.scrollY;
-    const vh = window.innerHeight;
-
-    parallaxItems.forEach((el) => {
-      const speed = parseFloat(el.dataset.parallax) || 0.15;
-      const rect = el.getBoundingClientRect();
-      const offset = (rect.top + rect.height / 2 - vh / 2) * speed;
-      el.style.transform = `translate3d(0, ${offset}px, 0)`;
-    });
-
-    if (stage3d) {
-      const rect = stage3d.getBoundingClientRect();
-      const progress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
-      stage3d.style.setProperty("--scroll-p", progress.toFixed(4));
-    }
-
-    cards3d.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      const delta = (center - vh / 2) / vh;
-      const rotateX = delta * -12;
-      const rotateY = (index % 2 === 0 ? 1 : -1) * delta * 8;
-      const translateZ = Math.max(0, 1 - Math.abs(delta)) * 40;
-      card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
-    });
-  }
-
-  window.addEventListener("scroll", onScroll3d, { passive: true });
-  window.addEventListener("resize", onScroll3d);
-  onScroll3d();
 
   document.querySelectorAll("[data-lead-form]").forEach((form) => {
     const notice = form.querySelector("[data-form-notice]");
