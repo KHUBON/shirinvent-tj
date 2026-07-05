@@ -2,7 +2,7 @@
 <html lang="tg">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Корҳо | Shirinvent</title>
   <link rel="icon" href="../assets/images/logo.svg" type="image/svg+xml">
   <script>(function(){var t=localStorage.getItem("shirinvent-theme");if(t)document.documentElement.setAttribute("data-theme",t);})();</script>
@@ -15,17 +15,33 @@
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="brand" href="./index.html"><img class="brand-mark" src="../assets/images/logo.svg" alt="Shirinvent" width="260" height="60"><span class="brand-copy"><strong>Shirinvent</strong><span>ЧП «Ширин»</span></span></a>
+      <a class="brand" href="./index.html"><img class="brand-mark brand-mark--full" src="../assets/images/logo.svg" alt="Shirinvent" width="260" height="60"><img class="brand-mark brand-mark--icon" src="../assets/images/logo-icon.svg" alt="" width="56" height="56" aria-hidden="true"><span class="brand-copy"><strong>Shirinvent</strong><span>ЧП «Ширин»</span></span></a>
       <nav class="nav"><a href="./index.html">Асосӣ</a><a href="./about.html">Дар бораи ширкат</a><a href="./services.html">Хидматҳо</a><a aria-current="page" href="./gallery.html">Корҳо</a><a href="./contacts.html">Тамос</a></nav>
       <div class="header-actions">
         <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="true"><span class="theme-icon-sun">☀</span><span class="theme-icon-moon">☾</span></button>
         <div class="lang-switch"><a href="../ru/gallery.html">RU</a><a class="active" href="./gallery.html">TJ</a></div>
         <a class="cta" href="./contacts.html#lead-form">Дархост</a>
-        <button class="menu-toggle" type="button" data-menu-button aria-expanded="false">≡</button>
+        <a class="header-phone" href="tel:+992934444119" aria-label="Занг задан"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></a><button class="menu-toggle" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Меню"><span class="menu-toggle-icon menu-toggle-icon--open" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span class="menu-toggle-icon menu-toggle-icon--close" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span></button>
       </div>
     </div>
-    <div class="shell mobile-panel" data-mobile-panel><nav><a href="./index.html">Асосӣ</a><a href="./about.html">Дар бораи ширкат</a><a href="./services.html">Хидматҳо</a><a href="./gallery.html">Корҳо</a><a href="./contacts.html">Тамос</a></nav></div>
   </header>
+  <div class="mobile-overlay" data-mobile-overlay aria-hidden="true"></div>
+  <aside class="mobile-drawer" data-mobile-panel id="mobile-menu" aria-hidden="true">
+    <div class="mobile-drawer-head">
+      <span class="mobile-drawer-title">Меню</span>
+      <button class="menu-close" type="button" data-menu-close aria-label="Пӯшидан">×</button>
+    </div>
+    <nav class="mobile-drawer-nav"><a href="./index.html">Асосӣ</a><a href="./about.html">Дар бораи ширкат</a><a href="./services.html">Хидматҳо</a><a href="./gallery.html">Корҳо</a><a href="./contacts.html">Тамос</a></nav>
+    <div class="mobile-drawer-tools">
+      <div class="lang-switch lang-switch--drawer"><a href="../ru/gallery.html">RU</a><a class="active" href="./gallery.html">TJ</a></div>
+      <button class="theme-toggle theme-toggle--drawer" type="button" data-theme-toggle aria-pressed="true" aria-label="Тема"><span class="theme-icon-sun">☀</span><span class="theme-icon-moon">☾</span></button>
+    </div>
+    <div class="mobile-drawer-cta">
+      <a class="cta cta-block" href="./contacts.html#lead-form">Дархост</a>
+      <a class="whatsapp cta-block" href="https://wa.me/992934444119">WhatsApp</a>
+      <a class="ghost cta-block" href="tel:+992934444119">+992 93 444 41 19</a>
+    </div>
+  </aside>
   <main>
     <section class="page-hero"><div class="shell page-hero-box"><span class="section-kicker">Портфолио</span><h1>Корҳои мо</h1><p class="lead">Аксҳои воқеӣ аз истеҳсол ва монтаж.</p></div></section>
     <section class="section"><div class="shell gallery-grid">
